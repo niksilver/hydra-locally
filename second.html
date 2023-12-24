@@ -46,12 +46,18 @@
 
         // This is our actual hydra script
 
-        var amp = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6];
-        const base = solid(0,0,0,1);
-        var lights = amp.reduce(
-            (acc, curr) => acc.add(shape(99, 0.1).color(1,0,0).scrollY(curr*0.5)),
-            base
-        );
+        const cols = 3;
+        const rows = 2;
+        const density = 10;
+
+        let amp = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6];
+        let lights = solid(0,0,0,1);
+        for (let i = 0; i < amp.length; i++) {
+            let a = amp[i];
+            let x = (i % cols) - ((cols-1)/2);
+            let y = Math.floor(i / cols) - ((rows-1)/2);
+            lights = lights.add(shape(99, 0.1).color(a,0,0).scrollX(x/density).scrollY(y/density));
+        };
         lights.scale(1, 1, correction).out();
       
     </script>
