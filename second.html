@@ -50,20 +50,18 @@
         const rows = 2;
         const density = 10;
 
-        a.show();
-        let audio = hydra.synth.a;
-        let amp = audio.fft;
         let lights = solid(0,0,0,1);
-        for (let i = 0; i < amp.length; i++) {
-            let a = amp[i];
+        a.setBins(6);
+        for (let i = 0; i < a.fft.length; i++) {
             let x = (i % cols) - ((cols-1)/2);
             let y = Math.floor(i / cols) - ((rows-1)/2);
             lights = lights
                 .add(shape(99, 0.1)
-                .color(a+0.5, 0, 0)
+                .color(() => a.fft[i], 0, 0)
                 .scrollX(x/density)
                 .scrollY(y/density));
         };
+        a.show();
         lights.scale(1, 1, correction).out();
       
     </script>
