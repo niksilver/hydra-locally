@@ -47,9 +47,10 @@
         // This is our actual hydra script
 
         var amp = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6];
-        var lights = solid(0,0,0,1);
-        amp.forEach((elt) =>
-            lights = lights.add(shape(99, 0.1).color(1,0,0).scrollY(elt*0.5))
+        const base = solid(0,0,0,1);
+        var lights = amp.reduce(
+            (acc, curr) => acc.add(shape(99, 0.1).color(1,0,0).scrollY(curr*0.5)),
+            base
         );
         lights.scale(1, 1, correction).out();
       
