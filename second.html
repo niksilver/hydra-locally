@@ -46,20 +46,23 @@
 
         // This is our actual hydra script
 
-        const cols = 3;
-        const rows = 2;
-        const density = 10;
+        const bins = 4;
+        a.setBins(bins);
 
         let lights = solid(0,0,0,1);
-        a.setBins(6);
         for (let i = 0; i < a.fft.length; i++) {
-            let x = (i % cols) - ((cols-1)/2);
-            let y = Math.floor(i / cols) - ((rows-1)/2);
+            // We'd like to have different noise patterns, but there's
+            // only one, it seems. So we adjust it fractionally each
+            // time and they will eventually get out of sync
+
             lights = lights
-                .add(shape(99, 0.1)
-                .color(() => a.fft[i], 0, 0)
-                .scrollX(x/density)
-                .scrollY(y/density));
+                .add(noise(2+(i/100), 0.1+i/100)
+                    .thresh(0.5)
+                    // Set a base colour that's goes from 0.1 to 1.0 in brightness
+                    .color(() => a.fft[i], 0, 0)
+                    .hue(i/bins) // Make them different colours
+                    .rotate(i/2) // Rotate them to make them look different
+                );
         };
         a.show();
         lights.scale(1, 1, correction).out();
