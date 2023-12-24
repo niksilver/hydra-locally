@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Local hydra</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- import the latest version of hydra synth-->
+    <script src="https://unpkg.com/hydra-synth"></script>
+    <!-- <script src="node_modules/hydra-synth/dist/hydra-synth.js"></script> -->
+
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+
+        canvas {
+          overflow-y: hidden;
+          position: fixed;
+          background-size: cover;
+          top: 0px;
+          left: 0px;
+          z-index: 0;
+          width: 100%;
+          height: 100%;
+          display: block;
+        }
+    </style>
+
+  </head>
+
+  <body>
+    <script>
+
+        // Set the canvas to be as big as the viewport. Needs to be done
+        // in JavaScript to avoid scaling.
+
+        var myCanvas = document.createElement("canvas");
+        myCanvas.width = window.innerWidth;
+        myCanvas.height = window.innerHeight;
+
+        // create a new hydra-synth instance
+
+        var hydra = new Hydra({
+            canvas: myCanvas,
+            width: window.innerWidth,
+            height: innerHeight,
+            detectAudio: false
+        })
+
+        document.body.appendChild(myCanvas);
+
+        // This is our actual hydra script
+
+        //osc(10, 0.1, 0.8).rotate(0, 0.1).kaleid().color(-1, 1).out()
+        //shape(99).out()
+        shape(99).scale(1,1,()=>window.innerWidth/window.innerHeight).mult(osc(20,0.1,2)).modulateScale(osc(1,2).invert(),0.5,0.5).out()
+      
+    </script>
+  </body>
+
+</html>
+
