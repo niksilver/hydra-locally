@@ -8,6 +8,7 @@
     <!-- import the latest version of hydra synth-->
     <!-- <script src="https://unpkg.com/hydra-synth"></script> -->
     <script src="node_modules/hydra-synth/dist/hydra-synth.js"></script>
+
     <style>
         html, body {
             width: 100%;
@@ -15,25 +16,32 @@
             padding: 0;
             margin: 0;
         }
-
-        #myCanvas {
-            width: 100%;
-            height: 100%
-        }
     </style>
 
   </head>
 
   <body>
+    <!-- canvas id="myCanvas" width="1280" height="720"></canvas -->
     <canvas id="myCanvas"></canvas>
     <script>
-      // create a new hydra-synth instance
-      var hydra = new Hydra({
-        canvas: document.getElementById("myCanvas"),
-        detectAudio: false
-      })
 
-      osc(10, 0.1, 0.8).rotate(0, 0.1).kaleid().color(-1, 1).out()
+        // Set the canvas to be as big as the viewport. Needs to be done
+        // in JavaScript to avoid scaling.
+
+        var canvas = document.getElementById("myCanvas");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // create a new hydra-synth instance
+
+        var hydra = new Hydra({
+            canvas: document.getElementById("myCanvas"),
+            detectAudio: false
+        })
+
+        // This is our actual hydra script
+
+        osc(10, 0.1, 0.8).rotate(0, 0.1).kaleid().color(-1, 1).out()
       
     </script>
   </body>
