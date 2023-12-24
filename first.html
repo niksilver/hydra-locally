@@ -4,6 +4,7 @@
     <title>Local hydra</title>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- import the latest version of hydra synth-->
     <!-- <script src="https://unpkg.com/hydra-synth"></script> -->
@@ -21,27 +22,31 @@
   </head>
 
   <body>
-    <!-- canvas id="myCanvas" width="1280" height="720"></canvas -->
     <canvas id="myCanvas"></canvas>
+
     <script>
 
         // Set the canvas to be as big as the viewport. Needs to be done
         // in JavaScript to avoid scaling.
 
-        var canvas = document.getElementById("myCanvas");
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        var myCanvas = document.getElementById("myCanvas");
+        myCanvas.width = window.innerWidth;
+        myCanvas.height = window.innerHeight;
+
+        // A function which will correct shapes for the canvas's aspect ratio
+
+        var correction = ()=>window.innerWidth/window.innerHeight;
 
         // create a new hydra-synth instance
 
         var hydra = new Hydra({
-            canvas: document.getElementById("myCanvas"),
+            canvas: myCanvas,
             detectAudio: false
         })
 
         // This is our actual hydra script
 
-        osc(10, 0.1, 0.8).rotate(0, 0.1).kaleid().color(-1, 1).out()
+        shape(99).scale(1, 1, correction).out();
       
     </script>
   </body>
